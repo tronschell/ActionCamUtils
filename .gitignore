@@ -10,3 +10,4 @@ __pycache__/
 *.toptrn
 vidlist.txt
 *.bat
+config.ini

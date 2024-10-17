@@ -1,4 +1,3 @@
-# src/main.py
 import os
 from rich.console import Console
 from rich.prompt import Prompt

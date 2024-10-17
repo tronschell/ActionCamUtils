@@ -74,12 +74,5 @@ def run_ffmpeg(input_directory: str, output_directory: str, select_files_option:
 
     os.rename(concat_filename, final_filename)
 
-    #os.remove(vidlist_path)  # Clean up the vidlist.txt file
     os.chdir(original_cwd)
     os.startfile(output_directory)
-
-if __name__ == "__main__":
-    input_directory = Prompt.ask("Enter the directory containing the video files")
-    output_directory = Prompt.ask("Enter the directory to save the concatenated video")
-    select_files_option = Prompt.ask("Do you want to select specific files to concatenate?", choices=["yes", "no"]) == "yes"
-    run_ffmpeg(input_directory, output_directory, select_files_option)
