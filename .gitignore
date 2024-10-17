@@ -1,0 +1,12 @@
+# Ignore directories in the format of MM-DD-YYYY, YYYY-MM-DD, or DD-MM-YYYY
+[0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]/
+[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]/
+[0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]/
+summer streets 8-17-2024/
+LUTS/
+logs/
+__pycache__/
+*.toproj
+*.toptrn
+vidlist.txt
+*.bat
