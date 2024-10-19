@@ -16,8 +16,13 @@ TRANSFER_VIDEOS = "3"
 SETTINGS = "4"
 EXIT = "5"
 
+def clear_screen() -> None:
+    """Clear the console screen."""
+    os.system('cls' if os.name == 'nt' else 'clear')
+
 def display_menu() -> None:
     """Display the available commands to the user."""
+    clear_screen()
     console.print("Available commands:", style="bold green")
     console.print(f"{ORGANIZE_VIDEOS}. Organize videos by date")
     console.print(f"{CONCATENATE_VIDEOS}. Concatenate videos")
@@ -51,7 +56,7 @@ def main() -> None:
                 logger.info(f"Executing command: {choice}")
                 command()
             except Exception as e:
-                logger.error(f"Error executing command {choice}: {e}")
+                logger.error(f"Error executing command {choice}: {e}", exc_info=True)
                 console.print(f"An error occurred: {e}", style="bold red")
         else:
             console.print("Invalid choice. Please try again.", style="bold red")

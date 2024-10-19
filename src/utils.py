@@ -1,11 +1,13 @@
 import os
 from datetime import datetime
 from typing import List
-import logging
 from rich.console import Console
 from rich.prompt import Prompt
 from video_import import select_directory
 from config import save_config, get_config_value
+from logging_setup import setup_logger
+
+logger = setup_logger(__name__)
 
 console = Console()
 
@@ -59,8 +61,8 @@ def create_vidlist_file(output_directory: str, video_files: List[str]) -> str:
     
     # Log the contents of the vidlist.txt file
     with open(vidlist_path, 'r') as vidlist_file:
-        logging.info(f"Contents of {vidlist_path}:")
-        logging.info(vidlist_file.read())
+        logger.info(f"Contents of {vidlist_path}:")
+        logger.info(vidlist_file.read())
     
     return vidlist_path
 

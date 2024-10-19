@@ -6,13 +6,13 @@ ActionCam Utils is a Python-based utility designed to help users manage and proc
 
 - **Import Videos**: Easily import videos from a selected directory.
 - **Organize Videos**: Automatically organize videos into folders based on their creation date.
-- **Concatenate Videos**: Concatenate multiple video files into a single file using FFmpeg.
+- **Concatenate Videos**: Quickly concatenate multiple video files into a single file using FFmpeg without re-encoding, ensuring no loss in video quality.
 
 ## Installation
 
 1. Clone the repository into your directory:
     ```sh
-    git clone https://github.com/yourusername/actioncam_utils.git
+    git clone https://github.com/tronschell/ActionCamUtils
     cd actioncam_utils
     ```
 
@@ -36,7 +36,6 @@ Example `config.ini`:
 [DEFAULT]
 input_directory = C:/your/input/directory
 output_directory = D:/your/output/directory
-
 ```
 
 ## Contributing
