@@ -62,7 +62,11 @@ def execute_command(choice: str) -> None:
 
 def main() -> None:
     """Main function to run the application."""
-    load_config()
+    config_existed = load_config()
+
+    if not config_existed:
+        console.print("Config file created. Please set up your input and output directories.", style="bold green")
+        handle_settings()
 
     while True:
         display_menu()

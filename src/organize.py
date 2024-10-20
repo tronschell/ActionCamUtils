@@ -13,7 +13,7 @@ logger = setup_logger(__name__)
 
 def organize_videos_by_date(directory):
     """
-    Move video files into folders based on their creation date.
+    Organize video files into folders based on their creation date.
 
     Args:
         directory (str): The directory to organize videos in.
@@ -21,6 +21,11 @@ def organize_videos_by_date(directory):
     Returns:
         None
     """
+    # Ensure the directory exists
+    if not os.path.exists(directory):
+        logger.error("Directory does not exist: %s", directory)
+        return
+
     logger.info('Starting to organize videos in directory: %s', directory)
 
     # Check and rename existing directories

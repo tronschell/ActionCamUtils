@@ -60,9 +60,13 @@ def handle_organize_videos() -> None:
     if not output_directory:
         breadcrumb_path.pop()
         return
-    organize_videos_by_date(output_directory)
-    console.print(
-        f"Videos in {output_directory} have been organized by date.", style="bold green")
+    try:
+        organize_videos_by_date(output_directory)
+        console.print(
+            f"Videos in {output_directory} have been organized by date.", style="bold green")
+    except Exception as e:
+        logger.error("Error organizing videos: %s", e)
+        console.print("An error occurred while organizing videos.", style="bold red")
     breadcrumb_path.pop()
 
 
@@ -87,8 +91,12 @@ def handle_concatenate_videos() -> None:
 
         if choice == "1":
             update_breadcrumb("Select Specific Files")
-            run_ffmpeg_with_error_handling(
-                input_directory, output_directory, True)
+            try:
+                run_ffmpeg_with_error_handling(
+                    input_directory, output_directory, True)
+            except Exception as e:
+                logger.error("Error during FFmpeg execution: %s", e)
+                console.print("An error occurred while running FFmpeg.", style="bold red")
             breadcrumb_path.pop()
             break
         elif choice == "2":
@@ -103,14 +111,13 @@ def handle_concatenate_videos() -> None:
     breadcrumb_path.pop()
     clear_screen()  # Clear the screen before returning to the main menu
 
-
 def handle_automatic_append(output_directory: str) -> None:
     """Handle the automatic appending of video files."""
     while True:
         console.print("Select an option:", style="bold green")
         console.print("1. Select a directory via the native file browser")
         console.print(
-            "2. Use the output directory specified in the config.ini file")
+            f"2. Use the output directory specified in the config.ini file: [bold blue]{output_directory}[/bold blue]")
         console.print("3. Back to previous menu")
 
         sub_choice = Prompt.ask("Enter your choice", choices=["1", "2", "3"])
@@ -246,15 +253,16 @@ def handle_settings() -> None:
         if settings_choice == "1":
             update_breadcrumb("Change Input Directory")
             change_directory('input')
-            current_input_directory = get_config_value(
-                'input_directory')  # Update the current directory
+            current_input_directory = get_config_value('input_directory')
             breadcrumb_path.pop()
         elif settings_choice == "2":
             update_breadcrumb("Change Output Directory")
             change_directory('output')
-            current_output_directory = get_config_value(
-                'output_directory')  # Update the current directory
+            current_output_directory = get_config_value('output_directory')
             breadcrumb_path.pop()
         elif settings_choice == "3":
-            breadcrumb_path.pop()
-            break
+            if not current_input_directory or not current_output_directory:
+                console.print("Please set both input and output directories before exiting settings.", style="bold red")
+            else:
+                breadcrumb_path.pop()
+                break

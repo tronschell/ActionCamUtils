@@ -37,7 +37,7 @@ def change_dir(path):
 
 
 def run_ffmpeg(input_directory: str, output_directory: str, select_files_option: bool) -> None:
-    """Run the FFmpeg command in the specified directory to concatenate videos."""
+    """Run FFmpeg to concatenate video files."""
     with change_dir(input_directory):
         # Generate filenames
         concat_filename = os.path.join(
@@ -79,9 +79,13 @@ def run_ffmpeg(input_directory: str, output_directory: str, select_files_option:
             final_filename = get_unique_filename(
                 output_directory, "output", "mp4")
 
-        os.rename(concat_filename, final_filename)
+        try:
+            os.rename(concat_filename, final_filename)
+        except Exception as e:
+            logger.error("Error renaming file: %s", e)
+            raise
 
-    open_output_directory(output_directory)
+        open_output_directory(output_directory)
 
 
 def concat_videos(directory: str, vidlist_path: str, concat_filename: str) -> None:

@@ -46,6 +46,10 @@ def get_video_files(directory: str) -> List[str]:
     Returns:
         List[str]: A list of video filenames.
     """
+    if not os.path.exists(directory):
+        logger.error("Directory does not exist: %s", directory)
+        return []
+
     video_extensions = ['.mp4', '.mov', '.avi', '.mkv']
     video_files = [f for f in os.listdir(directory) if os.path.splitext(f)[
         1].lower() in video_extensions]

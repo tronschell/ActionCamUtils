@@ -12,17 +12,22 @@ config_file = os.path.join(os.path.dirname(
 config = ConfigParser()
 
 
-def load_config() -> None:
-    """Load the configuration file."""
+def load_config() -> bool:
+    """Load the configuration file.
+
+    Returns:
+        bool: True if the config file existed, False if it was created.
+    """
     if os.path.exists(config_file):
         config.read(config_file)
+        logger.info("Configuration loaded")
+        return True
     else:
         config['DEFAULT'] = {'input_directory': '', 'output_directory': ''}
         with open(config_file, 'w', encoding='utf-8') as f:
             config.write(f)
-        logger.info(
-            "Configuration file created at %s with default values.", config_file)
-    logger.info("Configuration loaded")
+        logger.info("Configuration file created at %s with default values.", config_file)
+        return False
 
 
 def save_config(key: str, value: str) -> None:

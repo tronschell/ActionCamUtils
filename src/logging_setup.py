@@ -30,7 +30,7 @@ def setup_logger(name: str) -> logging.Logger:
     log_handler.setFormatter(formatter)
 
     logger = logging.getLogger(name)
-    logger.setLevel(logging.INFO)
+    logger.setLevel(logging.DEBUG)  # Set to DEBUG for development
 
     # Remove any existing handlers
     logger.handlers = []
